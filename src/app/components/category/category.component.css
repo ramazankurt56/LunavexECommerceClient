@@ -1,0 +1,52 @@
+.scrollable-div {
+   
+    width: auto;
+    height: 200px;
+    overflow-y: scroll;
+    border: 1.4px solid #ccc;
+}
+.scrollable-div ul {
+
+    margin: 0;
+    padding: 0;
+  }
+.scrollable-div ul li {
+    
+    list-style: none;
+    line-height: 30px;
+  }
+  
+  .scrollable-div ul li:hover {
+    cursor: pointer;
+    background-color: #e0e0e0; /* Üzerine gelindiğinde arka plan rengi */
+  }
+
+
+
+
+
+
+
+
+
+  /* Scrollbar stilini özelleştirme */
+.scrollable-div::-webkit-scrollbar {
+    width: 14px; /* Scrollbar genişliği */
+  }
+  
+  .scrollable-div::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Scrollbar arka plan rengi */
+    border-top-right-radius: 3px; /* Scrollbar köşe yuvarlaklığı */
+    border-bottom-right-radius: 3px; /* Scrollbar köşe yuvarlaklığı */
+  }
+  
+  .scrollable-div::-webkit-scrollbar-thumb {
+    background: #888; /* Scrollbar tutamaç rengi */
+    border-top-right-radius: 3px; /* Scrollbar köşe yuvarlaklığı */
+    border-bottom-right-radius: 3px; /* Scrollbar köşe yuvarlaklığı */
+
+  }
+  
+  .scrollable-div::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Scrollbar tutamaç rengi üzerine gelindiğinde */
+  }
