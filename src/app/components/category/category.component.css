@@ -1,7 +1,7 @@
 .scrollable-div {
    
     width: auto;
-    height: 200px;
+    height: 300px;
     overflow-y: scroll;
     border: 1.4px solid #ccc;
 }

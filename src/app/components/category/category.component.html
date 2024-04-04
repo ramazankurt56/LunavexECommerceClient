@@ -21,63 +21,101 @@
                     <div class="card-header">
                         <h3 class="card-title">Kategory Ekle</h3>
                     </div>
-
                     <div class="card-body">
-
                         <div class="form-group">
                             <label for="categoryInput">Email address</label>
                             <input type="text" class="form-control" id="categoryInput" placeholder="Enter email">
                         </div>
                         <br>
                         <br>
-
-                        <h4>Ana Kategori</h4>
+                        <h2>Kategoriler</h2>
                         <div class="row">
-                            <div class="col-sm-9">
+                            @for (list of parentList ; track list;let categoryIndex =$index ) {
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <select class="form-control" (change)="GetByCategoryId($event)">
-                                        <option value="">Seçiniz...</option>
-                                        @for (mainCategory of mainCategories; track mainCategory) {
-                                        <option [value]="mainCategory.id">{{mainCategory.name}}</option>
-                                        }
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="button" style="width: 100%;" class="btn btn-primary">Ana Kategori
-                                    Ekle</button>
-                            </div>
-                        </div>
-                        <h6>Alt Kategoriler</h6>
-                        <div class="row">
-                            @for (item of parentList; track item;let categoryIndex =$index) {
-                            <div class="col-sm-3">
-                                <div  class="form-group">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="categoryInput"
-                                            placeholder="Kategori ara">
-                                    </div>
                                     <div class="scrollable-div card">
                                         <ul>
-                                            @for (parentCategory of item; track $index) {
+                                            @for (parentCategory of list ; track parentCategory; let parentIndex=$index)
+                                            {
                                             <li (click)="getByParentCategoryId(parentCategory.id,categoryIndex)">
                                                 {{parentCategory.name}}</li>
                                             }
+                                           
                                         </ul>
                                     </div>
                                 </div>
-                                <button type="button" style="width: 100%;" class="btn btn-primary">Ekle</button>
+                                @if (categoryIndex >0) {
+                                <button class="btn btn-primary btn-sm mb-1 ms-1" data-toggle="modal"
+                                    style="width: 100%;" data-target="#AddCategoyModal"
+                                    [disabled]="categoryIndex !== parentList.length - 1">
+                                    Ekle</button>
+
+                                }
+                                @else if (categoryIndex===0) {
+                                <button class="btn btn-primary btn-sm mb-1 ms-1" data-toggle="modal"
+                                    style="width: 100%;" data-target="#AddMainCategoyModal"
+                                    [disabled]="categoryIndex !== parentList.length - 1">
+                                    Ekle</button>
+                                }
                             </div>
                             }
                         </div>
                     </div>
-
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-primary">Submit</button>
-                    </div>
                 </div>
             </div>
         </section>
+    </div>
+</div>
+
+<div class="modal fade" id="AddCategoyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Kategori Ekle</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearCreateCategoryModel()" #addCategoryModalCloseBtn>
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <form #addCategoryForm="ngForm" formValidate autocomplete="off"
+                (ngSubmit)="createCategory(addCategoryForm)">
+                <div class="modal-body">
+                    <div class="form-group mt-1">
+                        <label>Kategori Adı</label>
+                        <input type="text" required minlength="1" id="categoryName" class="form-control"
+                            [(ngModel)]="category.name" name="categoryName">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="AddMainCategoyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Ana Kategori Ekle</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearCreateMainCategoryModel()" #addMainCategoryModalCloseBtn>
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <form #addMainCategoryForm="ngForm" formValidate autocomplete="off"
+                (ngSubmit)="createMainCategory(addMainCategoryForm)">
+                <div class="modal-body">
+                    <div class="form-group mt-1">
+                        <label>Kategori Adı</label>
+                        <input type="text" required minlength="1" id="mainCategoryName" class="form-control"
+                            [(ngModel)]="category.name" name="mainCategoryName">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
