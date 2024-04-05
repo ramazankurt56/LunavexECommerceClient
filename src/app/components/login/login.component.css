@@ -1,0 +1,29 @@
+body {
+  background-color: #212529;
+  color: #fff;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #343a40;
+}
+
+.card-header {
+  background-color: #4285f4;
+  color: #fff;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.btn-primary {
+  background-color: #4285f4;
+  border-color: #4285f4;
+}
+.card-footer a{
+    color: #fffbfb;
+}.card-footer a:hover{
+    color: #96caf2;
+}

@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Category</h1>
+                        <h1>Kategoriler</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -22,12 +22,6 @@
                         <h3 class="card-title">Kategory Ekle</h3>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="categoryInput">Email address</label>
-                            <input type="text" class="form-control" id="categoryInput" placeholder="Enter email">
-                        </div>
-                        <br>
-                        <br>
                         <h2>Kategoriler</h2>
                         <div class="row">
                             @for (list of parentList ; track list;let categoryIndex =$index ) {
@@ -37,10 +31,10 @@
                                         <ul>
                                             @for (parentCategory of list ; track parentCategory; let parentIndex=$index)
                                             {
-                                            <li (click)="getByParentCategoryId(parentCategory.id,categoryIndex)">
+                                            <li (click)="getByParentCategoryId(parentCategory.id,categoryIndex,parentCategory.name)">
                                                 {{parentCategory.name}}</li>
                                             }
-                                           
+
                                         </ul>
                                     </div>
                                 </div>
@@ -49,6 +43,10 @@
                                     style="width: 100%;" data-target="#AddCategoyModal"
                                     [disabled]="categoryIndex !== parentList.length - 1">
                                     Ekle</button>
+                                    <button class="btn btn-primary btn-sm mb-1 ms-1" data-toggle="modal"
+                                    style="width: 100%;" data-target="#AddCategoyListModal"
+                                    [disabled]="categoryIndex !== parentList.length - 1">
+                                    Liste Ekle</button>
 
                                 }
                                 @else if (categoryIndex===0) {
@@ -80,19 +78,47 @@
                 (ngSubmit)="createCategory(addCategoryForm)">
                 <div class="modal-body">
                     <div class="form-group mt-1">
-                        <label>Kategori Adı</label>
+                        <label><span style="color:rgb(255, 255, 255) ; background-color: rgb(146, 0, 0);">{{modalCategoryName.toLocaleUpperCase()}}</span> Kategorisi Ekle</label>
                         <input type="text" required minlength="1" id="categoryName" class="form-control"
                             [(ngModel)]="category.name" name="categoryName">
                         <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="AddCategoyListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Kategori Listesi Ekle</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearCreateCategoryListModel()" #addCategoryListModalCloseBtn>
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <form #addCategoryListForm="ngForm" formValidate autocomplete="off"
+                (ngSubmit)="createCategoryList(addCategoryListForm)">
+                <div class="modal-body">
+                    <div class="form-group mt-1">
+                        <label><span style="color:rgb(255, 255, 255) ; background-color: rgb(146, 0, 0);">{{modalCategoryName.toLocaleUpperCase()}}</span> Kategorisi Ekle</label>
+                        <textarea class="form-control" rows="5" [(ngModel)]="categoryNames" name="categoryNames"
+                            required></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="AddMainCategoyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -103,7 +129,7 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <form #addMainCategoryForm="ngForm" formValidate autocomplete="off"
-                (ngSubmit)="createMainCategory(addMainCategoryForm)">
+                (ngSubmit)="createCategory(addMainCategoryForm)">
                 <div class="modal-body">
                     <div class="form-group mt-1">
                         <label>Kategori Adı</label>
@@ -113,7 +139,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
                 </div>
             </form>
         </div>

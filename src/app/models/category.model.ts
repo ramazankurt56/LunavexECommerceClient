@@ -1,5 +1,10 @@
 export class CategoryModel{
    
-    id: string = "";
+    parentCategoryId: string|null = "";
     name: string = "";
+}
+export class CategoryListModel{
+   
+    parentCategoryId: string = "";
+    name:string [] = [];
 }
